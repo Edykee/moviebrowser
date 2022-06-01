@@ -21,7 +21,7 @@ class GenreRepository(private val genreService: GenreService)  {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            onSuccess.invoke(responseBody.genre)
+                            onSuccess.invoke(responseBody.genres)
                             return
                         }
                         onError.invoke()
