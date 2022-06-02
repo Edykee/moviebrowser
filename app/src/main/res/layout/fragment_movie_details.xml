@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/sample_poster" />
+            android:src="@drawable/sample_poster" />
 
         <TextView
             android:id="@+id/title"
@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cover"
-            tools:text="The Ice Age Adventures of Buck Wild" />
+            android:text="The Ice Age Adventures of Buck Wild" />
 
         <TextView
             android:id="@+id/description"
@@ -42,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
-            tools:text="The fearless one-eyed weasel Buck teams up with mischievous possum brothers Crash &amp; Eddie as they head off on a new adventure into Buck's home: The Dinosaur World." />
+            android:text="The fearless one-eyed weasel Buck teams up with mischievous possum brothers Crash &amp; Eddie as they head off on a new adventure into Buck's home: The Dinosaur World." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

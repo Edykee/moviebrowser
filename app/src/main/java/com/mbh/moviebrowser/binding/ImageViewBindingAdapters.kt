@@ -9,6 +9,6 @@ fun ImageView.bindRemoteImage(url: String?) {
     url ?: return
 
     Glide.with(this)
-        .load(url)
+        .load("https://image.tmdb.org/t/p/w342$url")
         .into(this)
 }

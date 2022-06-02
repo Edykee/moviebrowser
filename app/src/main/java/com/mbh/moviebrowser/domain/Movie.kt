@@ -9,5 +9,7 @@ data class Movie(
     @SerializedName("poster_path")
     val coverUrl: String,
     @SerializedName("vote_average")
-    val rating: Float
+    val rating: Float,
+    @SerializedName("genre_ids")
+    val genreIds: List<Int>
 )
