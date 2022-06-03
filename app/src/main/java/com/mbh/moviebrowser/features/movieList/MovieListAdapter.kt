@@ -10,7 +10,8 @@ import java.util.stream.Collectors
 
 class MovieListAdapter(
     private var movies: List<Movie>,
-    private var genreMap: Map<Int, Genre>
+    private var genreMap: Map<Int, Genre>,
+    private var movieClickHandler: MovieClickHandler
 ) : RecyclerView.Adapter<MovieListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
 
@@ -27,6 +28,7 @@ class MovieListAdapter(
         val movie = movies[position]
         holder.itemMovieBinding.movie = movie
         holder.itemMovieBinding.setGenres(convertGenreIdsToString(movie, genreMap))
+        holder.itemMovieBinding.movieClickHandler = this.movieClickHandler
     }
 
     fun updateMovies(movies: List<Movie>) {

@@ -10,6 +10,7 @@ import com.mbh.moviebrowser.repository.MovieRepository
 class MovieListViewModel() : ViewModel() {
     private lateinit var movieRepository: MovieRepository
     private lateinit var genreRepository: GenreRepository
+    
     val genres: MutableLiveData<Map<Int, Genre>> = MutableLiveData<Map<Int, Genre>>()
     val movies: MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>()
 
@@ -25,19 +26,18 @@ class MovieListViewModel() : ViewModel() {
         movieRepository.getPopularMovies(onSuccess = ::onPopularMoviesFetched, onError = ::onError)
     }
 
+    private fun onPopularMoviesFetched(movies: List<Movie>) {
+        this.movies.postValue(movies)
+    }
+
     fun loadGenres() {
         genreRepository.getGenres(onSuccess = ::onPopularGenresFetched, onError = ::onError)
     }
-
 
     private fun onPopularGenresFetched(genres: List<Genre>) {
         val genreMap = genres.associateBy({ it.id }, { it })
         this.genres.postValue(genreMap)
 
-    }
-
-    private fun onPopularMoviesFetched(movies: List<Movie>) {
-        this.movies.postValue(movies)
     }
 
     private fun onError() {

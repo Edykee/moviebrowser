@@ -13,13 +13,18 @@
             name="genres"
             type="String" />
 
+        <variable
+            name="movieClickHandler"
+            type="com.mbh.moviebrowser.features.movieList.MovieClickHandler" />
+
         <import type="com.mbh.moviebrowser.features.movieList.ConversionUtil" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        android:padding="4dp"
+        android:onClick="@{() -> movieClickHandler.onClick(movie.id)}">
 
         <ImageView
             android:id="@+id/cover"
