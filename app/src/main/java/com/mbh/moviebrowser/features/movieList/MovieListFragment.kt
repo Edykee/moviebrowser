@@ -31,7 +31,7 @@ class MovieListFragment : Fragment(), MovieClickHandler {
         val genreRepository = GenreRepository(genresService);
 
         movieListViewModel =
-            ViewModelProvider(requireActivity()).get(MovieListViewModel::class.java)
+            ViewModelProvider(this).get(MovieListViewModel::class.java)
 
         movieListViewModel.setGenreRepository(genreRepository)
         movieListViewModel.setMovieRepository(movieRepository)
@@ -45,22 +45,6 @@ class MovieListFragment : Fragment(), MovieClickHandler {
         createView(view)
         initObservers()
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onClick(movieId: Long) {
-        val action = MovieListFragmentDirections.toMovieDetails(movieId.toString());
-        activity?.findNavController(R.id.navHostFragment)?.navigate(action)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        (activity as MainActivity).showBackButton(false)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        movieListViewModel.movies.value = listOf()
-        movieListViewModel.genres.value = mapOf()
     }
 
     private fun createView(view: View) {
@@ -79,5 +63,27 @@ class MovieListFragment : Fragment(), MovieClickHandler {
             movieListViewModel.movies.getValue()
                 ?.let { movies -> popularMoviesAdapter.updateMovies(movies) }
         })
+    }
+
+    override fun onClick(movieId: Long) {
+        val action = MovieListFragmentDirections.toMovieDetails(movieId);
+        activity?.findNavController(R.id.navHostFragment)?.navigate(action)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).showBackButton(false)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        movieListViewModel.movies.value = listOf()
+        movieListViewModel.genres.value = mapOf()
+        removeObservers()
+    }
+
+    private fun removeObservers() {
+        movieListViewModel.genres.removeObservers(viewLifecycleOwner)
+        movieListViewModel.movies.removeObservers(viewLifecycleOwner)
     }
 }

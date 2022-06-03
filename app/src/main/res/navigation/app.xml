@@ -25,7 +25,7 @@
 
         <argument
             android:name="movieId"
-            app:argType="string" />
+            app:argType="long" />
 
     </fragment>
 

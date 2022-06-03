@@ -1,6 +1,7 @@
 package com.mbh.moviebrowser.repository
 
 import com.mbh.moviebrowser.domain.Movie
+import com.mbh.moviebrowser.domain.MovieDetail
 import com.mbh.moviebrowser.domain.MoviesResponse
 import com.mbh.moviebrowser.network.MovieService
 import retrofit2.Call
@@ -35,15 +36,15 @@ class MovieRepository(private val movieService: MovieService) {
             })
     }
 
-    fun getMovie(
-        id: Long, onSuccess: (movies: Movie) -> Unit,
+    fun getMovieDetail(
+        id: Long, onSuccess: (movieDetail: MovieDetail) -> Unit,
         onError: () -> Unit
     ) {
-        movieService.getMovie(id)
-            .enqueue(object : Callback<Movie> {
+        movieService.getMovieDetail(id)
+            .enqueue(object : Callback<MovieDetail> {
                 override fun onResponse(
-                    call: Call<Movie>,
-                    response: Response<Movie>
+                    call: Call<MovieDetail>,
+                    response: Response<MovieDetail>
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
@@ -55,7 +56,7 @@ class MovieRepository(private val movieService: MovieService) {
                     }
                 }
 
-                override fun onFailure(call: Call<Movie>, throwable: Throwable) {
+                override fun onFailure(call: Call<MovieDetail>, throwable: Throwable) {
                     onError.invoke()
                 }
             })
