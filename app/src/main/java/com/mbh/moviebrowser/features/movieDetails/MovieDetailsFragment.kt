@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.mbh.moviebrowser.MainActivity
 import com.mbh.moviebrowser.R
 
 class MovieDetailsFragment : Fragment(){
@@ -17,5 +18,10 @@ class MovieDetailsFragment : Fragment(){
     ): View? {
         val movieId = args.movieId;
         return inflater.inflate(R.layout.fragment_movie_details, container, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).showBackButton(true)
     }
 }

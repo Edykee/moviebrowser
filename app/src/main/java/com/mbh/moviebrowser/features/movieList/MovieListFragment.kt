@@ -4,21 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.mbh.moviebrowser.MainActivity
 import com.mbh.moviebrowser.R
-import com.mbh.moviebrowser.domain.Movie
 import com.mbh.moviebrowser.network.GenreService
 import com.mbh.moviebrowser.network.MovieService
 import com.mbh.moviebrowser.network.RetrofitClient
 import com.mbh.moviebrowser.repository.GenreRepository
 import com.mbh.moviebrowser.repository.MovieRepository
 
-class MovieListFragment : Fragment(), MovieClickHandler{
+class MovieListFragment : Fragment(), MovieClickHandler {
     private lateinit var popularMoviesAdapter: MovieListAdapter
     private lateinit var movieListViewModel: MovieListViewModel
 
@@ -53,6 +52,17 @@ class MovieListFragment : Fragment(), MovieClickHandler{
         activity?.findNavController(R.id.navHostFragment)?.navigate(action)
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).showBackButton(false)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        movieListViewModel.movies.value = listOf()
+        movieListViewModel.genres.value = mapOf()
+    }
+
     private fun createView(view: View) {
         val popularMovies: RecyclerView = view.findViewById(R.id.popular_movies)
         popularMoviesAdapter = MovieListAdapter(listOf(), mapOf(), this)
@@ -70,5 +80,4 @@ class MovieListFragment : Fragment(), MovieClickHandler{
                 ?.let { movies -> popularMoviesAdapter.updateMovies(movies) }
         })
     }
-
 }
