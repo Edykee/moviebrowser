@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class GenreRepository(private val genreService: GenreService)  {
+class GenreRepository(private val genreService: GenreService) {
     fun getGenres(
         onSuccess: (movies: List<Genre>) -> Unit,
         onError: () -> Unit

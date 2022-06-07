@@ -31,15 +31,18 @@ class MovieListViewModel() : ViewModel() {
     }
 
     fun loadGenres() {
-        genreRepository.getGenres(onSuccess = ::onPopularGenresFetched, onError = ::onError)
+        genreRepository.getGenres(onSuccess = ::onGenresFetched, onError = ::onError)
     }
 
-    private fun onPopularGenresFetched(genres: List<Genre>) {
+    private fun onGenresFetched(genres: List<Genre>) {
         val genreMap = genres.associateBy({ it.id }, { it })
         this.genres.postValue(genreMap)
-
     }
 
+    fun cleanUp() {
+        movies.value = listOf()
+        genres.value = mapOf()
+    }
     private fun onError() {
         val error = true
     }

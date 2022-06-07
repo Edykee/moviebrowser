@@ -2,7 +2,7 @@ package com.mbh.moviebrowser.repository
 
 import com.mbh.moviebrowser.domain.Movie
 import com.mbh.moviebrowser.domain.MovieDetails
-import com.mbh.moviebrowser.domain.MoviesResponse
+import com.mbh.moviebrowser.domain.MovieListResponse
 import com.mbh.moviebrowser.network.MovieService
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,10 +15,10 @@ class MovieRepository(private val movieService: MovieService) {
         onError: () -> Unit
     ) {
         movieService.getPopularMovies(page)
-            .enqueue(object : Callback<MoviesResponse> {
+            .enqueue(object : Callback<MovieListResponse> {
                 override fun onResponse(
-                    call: Call<MoviesResponse>,
-                    response: Response<MoviesResponse>
+                    call: Call<MovieListResponse>,
+                    response: Response<MovieListResponse>
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
@@ -30,7 +30,7 @@ class MovieRepository(private val movieService: MovieService) {
                     }
                 }
 
-                override fun onFailure(call: Call<MoviesResponse>, throwable: Throwable) {
+                override fun onFailure(call: Call<MovieListResponse>, throwable: Throwable) {
                     onError.invoke()
                 }
             })

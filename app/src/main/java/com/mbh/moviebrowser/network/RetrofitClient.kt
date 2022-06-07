@@ -5,10 +5,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RetrofitClient {
-    val baseUrl = "https://api.themoviedb.org/"
+    private const val BASE_URL = "https://api.themoviedb.org/"
 
     fun getInstance(): Retrofit {
-        return Retrofit.Builder().baseUrl(baseUrl)
+        return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -25,25 +25,29 @@ class MovieListFragment : Fragment(), MovieClickHandler {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        initMovieListViewModel()
+        loadPopularMoviesAndGenres()
+        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+    }
+
+    private fun initMovieListViewModel() {
         val movieService = RetrofitClient.getInstance().create(MovieService::class.java);
         val genresService = RetrofitClient.getInstance().create(GenreService::class.java);
         val movieRepository = MovieRepository(movieService);
         val genreRepository = GenreRepository(genresService);
-
         movieListViewModel =
-            ViewModelProvider(this).get(MovieListViewModel::class.java)
-
+            ViewModelProvider(this)[MovieListViewModel::class.java]
         movieListViewModel.setGenreRepository(genreRepository)
         movieListViewModel.setMovieRepository(movieRepository)
+    }
+
+    private fun loadPopularMoviesAndGenres() {
         movieListViewModel.loadGenres()
         movieListViewModel.loadPopularMovies()
-
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         createView(view)
-        initObservers()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -55,13 +59,15 @@ class MovieListFragment : Fragment(), MovieClickHandler {
 
     private fun initObservers() {
         movieListViewModel.genres.observe(viewLifecycleOwner, Observer {
-            movieListViewModel.genres.getValue()
+            movieListViewModel.genres.value
                 ?.let { genreMap -> popularMoviesAdapter.updateGenres(genreMap) }
         })
 
         movieListViewModel.movies.observe(viewLifecycleOwner, Observer {
-            movieListViewModel.movies.getValue()
-                ?.let { movies -> popularMoviesAdapter.updateMovies(movies) }
+            movieListViewModel.movies.value
+                ?.let { movies ->
+                    popularMoviesAdapter.updateMovies(movies)
+                }
         })
     }
 
@@ -72,13 +78,13 @@ class MovieListFragment : Fragment(), MovieClickHandler {
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).showBackButton(false)
+        (activity as MainActivity).hideBackButton()
+        initObservers()
     }
 
-    override fun onStop() {
-        super.onStop()
-        movieListViewModel.movies.value = listOf()
-        movieListViewModel.genres.value = mapOf()
+    override fun onPause() {
+        super.onPause()
+        movieListViewModel.cleanUp()
         removeObservers()
     }
 

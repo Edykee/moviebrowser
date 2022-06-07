@@ -2,6 +2,8 @@ package com.mbh.moviebrowser
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -12,9 +14,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun showBackButton(isVisible: Boolean) {
-        supportActionBar?.setDisplayHomeAsUpEnabled(isVisible)
+    fun showBackButton() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
+    fun hideBackButton() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -15,14 +15,14 @@ import com.mbh.moviebrowser.network.RetrofitClient
 import com.mbh.moviebrowser.repository.MovieRepository
 
 class MovieDetailsFragment : Fragment() {
-    val args: MovieDetailsFragmentArgs by navArgs()
+    private val args: MovieDetailsFragmentArgs by navArgs()
     private lateinit var movieDetailsViewModel: MovieDetailsViewModel
     private lateinit var fragmentMovieDetailsBinding: FragmentMovieDetailsBinding;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         initMovieDetailsViewModel()
         loadMovieDetails()
 
@@ -36,7 +36,7 @@ class MovieDetailsFragment : Fragment() {
         val movieRepository = MovieRepository(movieService);
 
         movieDetailsViewModel =
-            ViewModelProvider(requireActivity()).get(MovieDetailsViewModel::class.java)
+            ViewModelProvider(requireActivity())[MovieDetailsViewModel::class.java]
         movieDetailsViewModel.setMovieRepository(movieRepository)
     }
 
@@ -46,8 +46,10 @@ class MovieDetailsFragment : Fragment() {
 
     private fun initObservers() {
         movieDetailsViewModel.movieDetails.observe(viewLifecycleOwner, Observer {
-            movieDetailsViewModel.movieDetails.getValue()
-                ?.let { movieDetails -> fragmentMovieDetailsBinding.movieDetails = movieDetails }
+            movieDetailsViewModel.movieDetails.value
+                ?.let { movieDetails ->
+                    fragmentMovieDetailsBinding.movieDetails = movieDetails
+                }
         })
     }
 
@@ -58,7 +60,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         initObservers()
-        (activity as MainActivity).showBackButton(true)
+        (activity as MainActivity).showBackButton()
     }
 
     override fun onPause() {

@@ -23,10 +23,9 @@ class MovieDetailsViewModel : ViewModel() {
 
     private fun onPopularMoviesFetched(movieDetails: MovieDetails) {
         this.movieDetails.postValue(movieDetails)
-
     }
 
-    public fun cleanUp() {
+    fun cleanUp() {
         movieDetails.value = MovieDetails(0, "", "", "", 0f, listOf())
     }
 
