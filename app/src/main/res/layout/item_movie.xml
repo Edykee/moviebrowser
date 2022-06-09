@@ -17,7 +17,6 @@
             name="movieClickHandler"
             type="com.mbh.moviebrowser.features.movieList.MovieClickHandler" />
 
-        <import type="com.mbh.moviebrowser.features.movieList.ConversionUtil" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,23 +57,42 @@
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
             android:text="@{genres}"
-            app:layout_constraintBottom_toTopOf="@id/rating"
+            app:layout_constraintBottom_toTopOf="@id/ratingDiv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cover"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
-        <ProgressBar
-            android:id="@+id/rating"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ratingDiv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
-            android:progress="@{ConversionUtil.INSTANCE.convertRatingToPercent(movie.rating)}"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cover"
-            app:layout_constraintTop_toBottomOf="@id/genres" />
+            app:layout_constraintStart_toEndOf="@+id/cover"
+            app:layout_constraintTop_toBottomOf="@id/genres">
+
+            <ImageView
+                android:id="@+id/ratingIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(movie.rating)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ratingIcon"
+                tools:text="5.1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
