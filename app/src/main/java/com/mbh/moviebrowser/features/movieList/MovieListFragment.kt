@@ -69,6 +69,17 @@ class MovieListFragment : Fragment(), MovieClickHandler {
                     popularMoviesAdapter.updateMovies(movies)
                 }
         })
+
+        movieListViewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            movieListViewModel.isLoading.value
+                ?.let { isLoading ->
+                    if (isLoading) {
+                        (activity as MainActivity).showLoadingSpinner()
+                    } else {
+                        (activity as MainActivity).hideLoadingSpinner()
+                    }
+                }
+        })
     }
 
     override fun onClick(movieId: Long) {

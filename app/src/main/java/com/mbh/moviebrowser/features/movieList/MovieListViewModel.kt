@@ -13,6 +13,7 @@ class MovieListViewModel() : ViewModel() {
     
     val genres: MutableLiveData<Map<Int, Genre>> = MutableLiveData<Map<Int, Genre>>()
     val movies: MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>()
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
     fun setMovieRepository(movieRepository: MovieRepository) {
         this.movieRepository = movieRepository;
@@ -23,10 +24,12 @@ class MovieListViewModel() : ViewModel() {
     }
 
     fun loadPopularMovies() {
+        isLoading.value = true
         movieRepository.getPopularMovies(onSuccess = ::onPopularMoviesFetched, onError = ::onError)
     }
 
     private fun onPopularMoviesFetched(movies: List<Movie>) {
+        isLoading.value = false
         this.movies.postValue(movies)
     }
 
@@ -42,7 +45,9 @@ class MovieListViewModel() : ViewModel() {
     fun cleanUp() {
         movies.value = listOf()
         genres.value = mapOf()
+        isLoading.value = false
     }
+
     private fun onError() {
         val error = true
     }

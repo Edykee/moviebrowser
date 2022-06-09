@@ -22,6 +22,14 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
+    fun showLoadingSpinner() {
+        findViewById<ProgressBar>(R.id.loadingSpinner).visibility = View.VISIBLE
+    }
+
+    fun hideLoadingSpinner() {
+        findViewById<ProgressBar>(R.id.loadingSpinner).visibility = View.GONE
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
             android.R.id.home -> {

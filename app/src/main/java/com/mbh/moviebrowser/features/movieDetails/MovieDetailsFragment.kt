@@ -18,6 +18,7 @@ class MovieDetailsFragment : Fragment() {
     private val args: MovieDetailsFragmentArgs by navArgs()
     private lateinit var movieDetailsViewModel: MovieDetailsViewModel
     private lateinit var fragmentMovieDetailsBinding: FragmentMovieDetailsBinding;
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +50,17 @@ class MovieDetailsFragment : Fragment() {
             movieDetailsViewModel.movieDetails.value
                 ?.let { movieDetails ->
                     fragmentMovieDetailsBinding.movieDetails = movieDetails
+                }
+        })
+
+        movieDetailsViewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            movieDetailsViewModel.isLoading.value
+                ?.let { isLoading ->
+                    if (isLoading) {
+                        (activity as MainActivity).showLoadingSpinner()
+                    } else {
+                        (activity as MainActivity).hideLoadingSpinner()
+                    }
                 }
         })
     }
