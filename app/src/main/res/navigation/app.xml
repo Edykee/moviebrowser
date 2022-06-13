@@ -26,6 +26,21 @@
         <argument
             android:name="movieId"
             app:argType="long" />
+        <action
+            android:id="@+id/toPersonDetails"
+            app:destination="@id/personDetails" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/personDetails"
+        android:name="com.mbh.moviebrowser.features.personDetails.PersonDetailsFragment"
+        android:label="Person Details"
+        tools:layout="@layout/fragment_person_details">
+
+        <argument
+            android:name="personId"
+            app:argType="integer" />
 
     </fragment>
 

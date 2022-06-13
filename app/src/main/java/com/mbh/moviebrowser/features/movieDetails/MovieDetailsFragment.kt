@@ -7,20 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.mbh.moviebrowser.MainActivity
 import com.mbh.moviebrowser.R
 import com.mbh.moviebrowser.databinding.FragmentMovieDetailsBinding
+import com.mbh.moviebrowser.features.movieList.MovieListFragmentDirections
 import com.mbh.moviebrowser.network.MovieService
 import com.mbh.moviebrowser.network.RetrofitClient
 import com.mbh.moviebrowser.repository.MovieRepository
 
-class MovieDetailsFragment : Fragment() {
+class MovieDetailsFragment : Fragment(), PersonClickHandler {
     private val args: MovieDetailsFragmentArgs by navArgs()
     private lateinit var movieDetailsViewModel: MovieDetailsViewModel
     private lateinit var fragmentMovieDetailsBinding: FragmentMovieDetailsBinding;
-    private lateinit var creditsAdapter : CreditsAdapter
+    private lateinit var creditsAdapter: CreditsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +43,7 @@ class MovieDetailsFragment : Fragment() {
 
     private fun createView(view: View) {
         val credits: RecyclerView = view.findViewById(R.id.credits)
-        creditsAdapter = CreditsAdapter(listOf())
+        creditsAdapter = CreditsAdapter(listOf(), this)
         credits.adapter = creditsAdapter
     }
 
@@ -88,6 +90,7 @@ class MovieDetailsFragment : Fragment() {
 
     private fun removeObservers() {
         movieDetailsViewModel.movieDetails.removeObservers(viewLifecycleOwner)
+        movieDetailsViewModel.movieCredits.removeObservers(viewLifecycleOwner)
     }
 
     override fun onResume() {
@@ -100,5 +103,10 @@ class MovieDetailsFragment : Fragment() {
         super.onPause()
         movieDetailsViewModel.cleanUp()
         removeObservers();
+    }
+
+    override fun onClick(personId: Int) {
+        val action = MovieDetailsFragmentDirections.toPersonDetails(personId)
+        activity?.findNavController(R.id.navHostFragment)?.navigate(action)
     }
 }

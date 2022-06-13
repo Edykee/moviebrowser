@@ -47,6 +47,7 @@ class MovieDetailsViewModel : ViewModel() {
 
     fun cleanUp() {
         movieDetails.value = MovieDetails(0, "", "", "", 0f, listOf())
+        movieCredits.value = MovieCreditsResponse(0, listOf())
         isLoading.value = false;
     }
 

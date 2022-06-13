@@ -8,12 +8,16 @@
             name="cast"
             type="com.mbh.moviebrowser.domain.Cast" />
 
+        <variable
+            name="personClickHandler"
+            type="com.mbh.moviebrowser.features.movieDetails.PersonClickHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        android:padding="4dp"
+        android:onClick="@{ () -> personClickHandler.onClick(cast.id)}">
 
         <ImageView
             android:id="@+id/cover"
