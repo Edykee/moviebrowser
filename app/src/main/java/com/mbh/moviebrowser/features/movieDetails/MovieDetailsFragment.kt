@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.mbh.moviebrowser.MainActivity
 import com.mbh.moviebrowser.R
+import com.mbh.moviebrowser.common.SharedViewModel
 import com.mbh.moviebrowser.databinding.FragmentMovieDetailsBinding
 import com.mbh.moviebrowser.features.movieList.MovieListFragmentDirections
 import com.mbh.moviebrowser.network.MovieService
@@ -48,12 +49,11 @@ class MovieDetailsFragment : Fragment(), PersonClickHandler {
     }
 
     private fun initMovieDetailsViewModel() {
+        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
         val movieService = RetrofitClient.getInstance().create(MovieService::class.java);
         val movieRepository = MovieRepository(movieService);
-
-        movieDetailsViewModel =
-            ViewModelProvider(requireActivity())[MovieDetailsViewModel::class.java]
-        movieDetailsViewModel.setMovieRepository(movieRepository)
+        movieDetailsViewModel = MovieDetailsViewModel(movieRepository, sharedViewModel)
     }
 
     private fun loadMovieDetails() {
@@ -73,17 +73,6 @@ class MovieDetailsFragment : Fragment(), PersonClickHandler {
             movieDetailsViewModel.movieCredits.value
                 ?.let { movieCredits ->
                     creditsAdapter.updateCasts(movieCredits.casts)
-                }
-        })
-
-        movieDetailsViewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            movieDetailsViewModel.isLoading.value
-                ?.let { isLoading ->
-                    if (isLoading) {
-                        (activity as MainActivity).showLoadingSpinner()
-                    } else {
-                        (activity as MainActivity).hideLoadingSpinner()
-                    }
                 }
         })
     }

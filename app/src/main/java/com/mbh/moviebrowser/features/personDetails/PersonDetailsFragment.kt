@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.mbh.moviebrowser.common.SharedViewModel
 import com.mbh.moviebrowser.databinding.FragmentPersonDetailsBinding
 import com.mbh.moviebrowser.databinding.FragmentPersonDetailsBindingImpl
 import com.mbh.moviebrowser.domain.PersonDetails
@@ -63,8 +64,9 @@ class PersonDetailsFragment : Fragment() {
     }
 
     private fun initPersonDetailsViewModel() {
+        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val personService = RetrofitClient.getInstance().create(PersonService::class.java);
         val personRepository = PersonRepository(personService)
-        personDetailsViewModel = PersonDetailsViewModel(personRepository)
+        personDetailsViewModel = PersonDetailsViewModel(personRepository, sharedViewModel)
     }
 }

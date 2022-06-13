@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mbh.moviebrowser.MainActivity
 import com.mbh.moviebrowser.R
+import com.mbh.moviebrowser.common.SharedViewModel
 import com.mbh.moviebrowser.network.GenreService
 import com.mbh.moviebrowser.network.MovieService
 import com.mbh.moviebrowser.network.RetrofitClient
@@ -31,14 +32,12 @@ class MovieListFragment : Fragment(), MovieClickHandler {
     }
 
     private fun initMovieListViewModel() {
+        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val movieService = RetrofitClient.getInstance().create(MovieService::class.java);
         val genresService = RetrofitClient.getInstance().create(GenreService::class.java);
         val movieRepository = MovieRepository(movieService);
         val genreRepository = GenreRepository(genresService);
-        movieListViewModel =
-            ViewModelProvider(this)[MovieListViewModel::class.java]
-        movieListViewModel.setGenreRepository(genreRepository)
-        movieListViewModel.setMovieRepository(movieRepository)
+        movieListViewModel = MovieListViewModel(movieRepository, genreRepository, sharedViewModel)
     }
 
     private fun loadPopularMoviesAndGenres() {
@@ -67,17 +66,6 @@ class MovieListFragment : Fragment(), MovieClickHandler {
             movieListViewModel.movies.value
                 ?.let { movies ->
                     popularMoviesAdapter.updateMovies(movies)
-                }
-        })
-
-        movieListViewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            movieListViewModel.isLoading.value
-                ?.let { isLoading ->
-                    if (isLoading) {
-                        (activity as MainActivity).showLoadingSpinner()
-                    } else {
-                        (activity as MainActivity).hideLoadingSpinner()
-                    }
                 }
         })
     }

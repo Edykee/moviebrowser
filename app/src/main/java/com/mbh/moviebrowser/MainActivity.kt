@@ -5,13 +5,45 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.mbh.moviebrowser.common.SharedViewModel
 
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var sharedViewModel: SharedViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        initObserver()
+
+    }
+
+    fun initObserver() {
+        sharedViewModel.showLoadingSpinner.observe(this, Observer {
+            sharedViewModel.showLoadingSpinner.value
+                ?.let { showLoadingSpinner ->
+                    if (showLoadingSpinner) {
+                        showLoadingSpinner()
+                    } else {
+                        hideLoadingSpinner()
+                    }
+                }
+        })
+    }
+
+    fun removeObserver() {
+        sharedViewModel.showLoadingSpinner.removeObservers(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        removeObserver()
     }
 
     fun showBackButton() {
@@ -22,11 +54,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
-    fun showLoadingSpinner() {
+    private fun showLoadingSpinner() {
         findViewById<ProgressBar>(R.id.loadingSpinner).visibility = View.VISIBLE
     }
 
-    fun hideLoadingSpinner() {
+    private fun hideLoadingSpinner() {
         findViewById<ProgressBar>(R.id.loadingSpinner).visibility = View.GONE
     }
 

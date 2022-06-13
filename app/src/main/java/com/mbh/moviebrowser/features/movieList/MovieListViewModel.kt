@@ -2,34 +2,28 @@ package com.mbh.moviebrowser.features.movieList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mbh.moviebrowser.common.SharedViewModel
 import com.mbh.moviebrowser.domain.Genre
 import com.mbh.moviebrowser.domain.Movie
 import com.mbh.moviebrowser.repository.GenreRepository
 import com.mbh.moviebrowser.repository.MovieRepository
 
-class MovieListViewModel() : ViewModel() {
-    private lateinit var movieRepository: MovieRepository
-    private lateinit var genreRepository: GenreRepository
-    
+class MovieListViewModel(
+    val movieRepository: MovieRepository,
+    val genreRepository: GenreRepository,
+    val sharedViewModel: SharedViewModel
+) : ViewModel() {
+
     val genres: MutableLiveData<Map<Int, Genre>> = MutableLiveData<Map<Int, Genre>>()
     val movies: MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>()
-    val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-
-    fun setMovieRepository(movieRepository: MovieRepository) {
-        this.movieRepository = movieRepository;
-    }
-
-    fun setGenreRepository(genreRepository: GenreRepository) {
-        this.genreRepository = genreRepository;
-    }
 
     fun loadPopularMovies() {
-        isLoading.value = true
+        sharedViewModel.showLoadingSpinner.value = true
         movieRepository.getPopularMovies(onSuccess = ::onPopularMoviesFetched, onError = ::onError)
     }
 
     private fun onPopularMoviesFetched(movies: List<Movie>) {
-        isLoading.value = false
+        sharedViewModel.showLoadingSpinner.value = false
         this.movies.postValue(movies)
     }
 
@@ -45,7 +39,7 @@ class MovieListViewModel() : ViewModel() {
     fun cleanUp() {
         movies.value = listOf()
         genres.value = mapOf()
-        isLoading.value = false
+        sharedViewModel.showLoadingSpinner.value = false
     }
 
     private fun onError() {

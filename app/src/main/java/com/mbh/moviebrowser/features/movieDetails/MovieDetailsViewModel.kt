@@ -2,25 +2,23 @@ package com.mbh.moviebrowser.features.movieDetails
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mbh.moviebrowser.common.SharedViewModel
 import com.mbh.moviebrowser.domain.MovieCreditsResponse
 import com.mbh.moviebrowser.domain.MovieDetails
 import com.mbh.moviebrowser.repository.MovieRepository
 
-class MovieDetailsViewModel : ViewModel() {
+class MovieDetailsViewModel(
+    val movieRepository: MovieRepository,
+    val sharedViewModel: SharedViewModel
+) : ViewModel() {
 
     val movieDetails: MutableLiveData<MovieDetails> = MutableLiveData<MovieDetails>()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val movieCredits: MutableLiveData<MovieCreditsResponse> =
         MutableLiveData<MovieCreditsResponse>()
 
-    private lateinit var movieRepository: MovieRepository
-
-    fun setMovieRepository(movieRepository: MovieRepository) {
-        this.movieRepository = movieRepository;
-    }
-
     fun loadMovieDetail(movieId: Long) {
-        isLoading.value = true;
+        sharedViewModel.showLoadingSpinner.value = true;
         movieRepository.getMovieDetail(
             movieId,
             onSuccess = ::onPopularMoviesFetched,
@@ -41,14 +39,14 @@ class MovieDetailsViewModel : ViewModel() {
     }
 
     private fun onPopularMoviesFetched(movieDetails: MovieDetails) {
-        isLoading.value = false;
+        sharedViewModel.showLoadingSpinner.value = false;
         this.movieDetails.postValue(movieDetails)
     }
 
     fun cleanUp() {
         movieDetails.value = MovieDetails(0, "", "", "", 0f, listOf())
         movieCredits.value = MovieCreditsResponse(0, listOf())
-        isLoading.value = false;
+        sharedViewModel.showLoadingSpinner.value = false;
     }
 
     private fun onError() {
