@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:text="@{`As ` + cast.character}"
+            android:text="@{@string/as  + cast.character}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cover"
             app:layout_constraintTop_toBottomOf="@+id/name"
