@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mbh.moviebrowser.databinding.ItemMovieBinding
-import com.mbh.moviebrowser.domain.Genre
-import com.mbh.moviebrowser.domain.Movie
+import com.mbh.moviebrowser.model.Genre
+import com.mbh.moviebrowser.model.Movie
 import java.util.stream.Collectors
 
 class MovieListAdapter(

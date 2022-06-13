@@ -11,15 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.mbh.moviebrowser.common.SharedViewModel
 import com.mbh.moviebrowser.databinding.FragmentPersonDetailsBinding
 import com.mbh.moviebrowser.databinding.FragmentPersonDetailsBindingImpl
-import com.mbh.moviebrowser.domain.PersonDetails
-import com.mbh.moviebrowser.features.movieDetails.MovieDetailsFragmentArgs
-import com.mbh.moviebrowser.features.movieList.MovieListViewModel
-import com.mbh.moviebrowser.network.GenreService
-import com.mbh.moviebrowser.network.MovieService
 import com.mbh.moviebrowser.network.PersonService
 import com.mbh.moviebrowser.network.RetrofitClient
-import com.mbh.moviebrowser.repository.GenreRepository
-import com.mbh.moviebrowser.repository.MovieRepository
 import com.mbh.moviebrowser.repository.PersonRepository
 
 class PersonDetailsFragment : Fragment() {

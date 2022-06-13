@@ -3,8 +3,8 @@ package com.mbh.moviebrowser.features.movieDetails
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mbh.moviebrowser.common.SharedViewModel
-import com.mbh.moviebrowser.domain.MovieCreditsResponse
-import com.mbh.moviebrowser.domain.MovieDetails
+import com.mbh.moviebrowser.model.MovieCreditsResponse
+import com.mbh.moviebrowser.model.MovieDetails
 import com.mbh.moviebrowser.repository.MovieRepository
 
 class MovieDetailsViewModel(

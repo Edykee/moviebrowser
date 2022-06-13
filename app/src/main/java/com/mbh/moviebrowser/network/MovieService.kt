@@ -1,9 +1,9 @@
 package com.mbh.moviebrowser.network
 
 import com.mbh.moviebrowser.BuildConfig
-import com.mbh.moviebrowser.domain.MovieCreditsResponse
-import com.mbh.moviebrowser.domain.MovieDetails
-import com.mbh.moviebrowser.domain.MovieListResponse
+import com.mbh.moviebrowser.model.MovieCreditsResponse
+import com.mbh.moviebrowser.model.MovieDetails
+import com.mbh.moviebrowser.model.MovieListResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

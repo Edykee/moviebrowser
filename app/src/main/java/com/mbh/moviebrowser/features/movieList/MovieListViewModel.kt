@@ -3,8 +3,8 @@ package com.mbh.moviebrowser.features.movieList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mbh.moviebrowser.common.SharedViewModel
-import com.mbh.moviebrowser.domain.Genre
-import com.mbh.moviebrowser.domain.Movie
+import com.mbh.moviebrowser.model.Genre
+import com.mbh.moviebrowser.model.Movie
 import com.mbh.moviebrowser.repository.GenreRepository
 import com.mbh.moviebrowser.repository.MovieRepository
 

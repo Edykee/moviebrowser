@@ -1,7 +1,7 @@
 package com.mbh.moviebrowser.network
 
 import com.mbh.moviebrowser.BuildConfig
-import com.mbh.moviebrowser.domain.PersonDetails
+import com.mbh.moviebrowser.model.PersonDetails
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

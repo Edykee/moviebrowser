@@ -1,4 +1,4 @@
-package com.mbh.moviebrowser.domain
+package com.mbh.moviebrowser.model
 
 data class Genre(
     val id: Int,

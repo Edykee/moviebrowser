@@ -1,9 +1,9 @@
 package com.mbh.moviebrowser.repository
 
-import com.mbh.moviebrowser.domain.Movie
-import com.mbh.moviebrowser.domain.MovieCreditsResponse
-import com.mbh.moviebrowser.domain.MovieDetails
-import com.mbh.moviebrowser.domain.MovieListResponse
+import com.mbh.moviebrowser.model.Movie
+import com.mbh.moviebrowser.model.MovieCreditsResponse
+import com.mbh.moviebrowser.model.MovieDetails
+import com.mbh.moviebrowser.model.MovieListResponse
 import com.mbh.moviebrowser.network.MovieService
 import retrofit2.Call
 import retrofit2.Callback

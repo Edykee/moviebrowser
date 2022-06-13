@@ -1,7 +1,7 @@
 package com.mbh.moviebrowser.repository
 
-import com.mbh.moviebrowser.domain.Genre
-import com.mbh.moviebrowser.domain.GenresResponse
+import com.mbh.moviebrowser.model.Genre
+import com.mbh.moviebrowser.model.GenresResponse
 import com.mbh.moviebrowser.network.GenreService
 import retrofit2.Call
 import retrofit2.Callback

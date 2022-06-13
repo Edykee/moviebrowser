@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.mbh.moviebrowser.domain.Movie" />
+            type="com.mbh.moviebrowser.model.Movie" />
 
         <variable
             name="genres"

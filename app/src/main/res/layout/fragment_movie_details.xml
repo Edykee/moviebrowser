@@ -7,7 +7,7 @@
 
         <variable
             name="movieDetails"
-            type="com.mbh.moviebrowser.domain.MovieDetails" />
+            type="com.mbh.moviebrowser.model.MovieDetails" />
     </data>
 
     <ScrollView

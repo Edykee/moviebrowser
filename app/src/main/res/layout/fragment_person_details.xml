@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.mbh.moviebrowser.domain.PersonDetails" />
+            type="com.mbh.moviebrowser.model.PersonDetails" />
     </data>
 
     <ScrollView
@@ -56,6 +56,7 @@
                 app:layout_constraintDimensionRatio="2:3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/department"
+                android:visibility="visible"
                 tools:src="@drawable/sample_poster" />
 
             <TextView

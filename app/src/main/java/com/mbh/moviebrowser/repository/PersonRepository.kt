@@ -1,6 +1,6 @@
 package com.mbh.moviebrowser.repository
 
-import com.mbh.moviebrowser.domain.PersonDetails
+import com.mbh.moviebrowser.model.PersonDetails
 import com.mbh.moviebrowser.network.PersonService
 import retrofit2.Call
 import retrofit2.Callback

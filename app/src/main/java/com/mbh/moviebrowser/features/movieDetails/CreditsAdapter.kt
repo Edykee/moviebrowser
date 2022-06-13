@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mbh.moviebrowser.databinding.ItemCastBinding
-import com.mbh.moviebrowser.domain.Cast
+import com.mbh.moviebrowser.model.Cast
 
 class CreditsAdapter(var casts: List<Cast>, var personClickHandler: PersonClickHandler) : RecyclerView.Adapter<CreditsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditsViewHolder {
