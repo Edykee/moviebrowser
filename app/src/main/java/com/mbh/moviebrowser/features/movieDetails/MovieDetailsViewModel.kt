@@ -2,6 +2,7 @@ package com.mbh.moviebrowser.features.movieDetails
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mbh.moviebrowser.domain.MovieCreditsResponse
 import com.mbh.moviebrowser.domain.MovieDetails
 import com.mbh.moviebrowser.repository.MovieRepository
 
@@ -9,6 +10,8 @@ class MovieDetailsViewModel : ViewModel() {
 
     val movieDetails: MutableLiveData<MovieDetails> = MutableLiveData<MovieDetails>()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    val movieCredits: MutableLiveData<MovieCreditsResponse> =
+        MutableLiveData<MovieCreditsResponse>()
 
     private lateinit var movieRepository: MovieRepository
 
@@ -23,6 +26,18 @@ class MovieDetailsViewModel : ViewModel() {
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError
         )
+    }
+
+    fun loadMovieCredits(movieId: Long) {
+        movieRepository.getMovieCredits(
+            movieId,
+            onSuccess = ::onMovieCreditsFetched,
+            onError = ::onError
+        )
+    }
+
+    private fun onMovieCreditsFetched(movieCreditsResponse: MovieCreditsResponse) {
+        this.movieCredits.postValue(movieCreditsResponse)
     }
 
     private fun onPopularMoviesFetched(movieDetails: MovieDetails) {

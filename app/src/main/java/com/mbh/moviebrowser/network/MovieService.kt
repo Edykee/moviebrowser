@@ -1,6 +1,7 @@
 package com.mbh.moviebrowser.network
 
 import com.mbh.moviebrowser.BuildConfig
+import com.mbh.moviebrowser.domain.MovieCreditsResponse
 import com.mbh.moviebrowser.domain.MovieDetails
 import com.mbh.moviebrowser.domain.MovieListResponse
 import retrofit2.Call
@@ -20,4 +21,10 @@ interface MovieService {
         @Path("id") id: Long,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Call<MovieDetails>
+
+    @GET("3/movie/{id}/credits?")
+    fun getMovieCredits(
+        @Path("id") id: Long,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
+    ): Call<MovieCreditsResponse>
 }
