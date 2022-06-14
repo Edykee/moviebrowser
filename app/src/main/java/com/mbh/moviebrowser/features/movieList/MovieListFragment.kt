@@ -37,7 +37,10 @@ class MovieListFragment : Fragment(), MovieClickHandler {
         val genresService = RetrofitClient.getInstance().create(GenreService::class.java);
         val movieRepository = MovieRepository(movieService);
         val genreRepository = GenreRepository(genresService);
-        movieListViewModel = MovieListViewModel(movieRepository, genreRepository, sharedViewModel)
+        movieListViewModel = ViewModelProvider(requireActivity()).get(MovieListViewModel::class.java)
+        movieListViewModel.setMovieRepository(movieRepository)
+        movieListViewModel.setGenreRepository(genreRepository)
+        movieListViewModel.setSharedViewModel(sharedViewModel)
     }
 
     private fun loadPopularMoviesAndGenres() {

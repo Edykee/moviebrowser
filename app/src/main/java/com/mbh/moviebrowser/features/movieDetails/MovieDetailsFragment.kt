@@ -53,7 +53,11 @@ class MovieDetailsFragment : Fragment(), PersonClickHandler {
 
         val movieService = RetrofitClient.getInstance().create(MovieService::class.java);
         val movieRepository = MovieRepository(movieService);
-        movieDetailsViewModel = MovieDetailsViewModel(movieRepository, sharedViewModel)
+        movieDetailsViewModel =
+            ViewModelProvider(requireActivity()).get(MovieDetailsViewModel::class.java)
+        movieDetailsViewModel.setMovieRepository(movieRepository)
+        movieDetailsViewModel.setSharedViewModel(sharedViewModel)
+
     }
 
     private fun loadMovieDetails() {

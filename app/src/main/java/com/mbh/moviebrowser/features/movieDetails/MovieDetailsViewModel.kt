@@ -7,15 +7,21 @@ import com.mbh.moviebrowser.model.MovieCreditsResponse
 import com.mbh.moviebrowser.model.MovieDetails
 import com.mbh.moviebrowser.repository.MovieRepository
 
-class MovieDetailsViewModel(
-    val movieRepository: MovieRepository,
-    val sharedViewModel: SharedViewModel
-) : ViewModel() {
+class MovieDetailsViewModel() : ViewModel() {
+    private lateinit var movieRepository: MovieRepository
+    private lateinit var sharedViewModel: SharedViewModel
 
     val movieDetails: MutableLiveData<MovieDetails> = MutableLiveData<MovieDetails>()
-    val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val movieCredits: MutableLiveData<MovieCreditsResponse> =
         MutableLiveData<MovieCreditsResponse>()
+
+    fun setMovieRepository(movieRepository: MovieRepository) {
+        this.movieRepository = movieRepository
+    }
+
+    fun setSharedViewModel(sharedViewModel: SharedViewModel) {
+        this.sharedViewModel = sharedViewModel
+    }
 
     fun loadMovieDetail(movieId: Long) {
         sharedViewModel.showLoadingSpinner.value = true;

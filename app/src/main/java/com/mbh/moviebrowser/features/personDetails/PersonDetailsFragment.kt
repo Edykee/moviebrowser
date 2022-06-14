@@ -60,6 +60,9 @@ class PersonDetailsFragment : Fragment() {
         val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val personService = RetrofitClient.getInstance().create(PersonService::class.java);
         val personRepository = PersonRepository(personService)
-        personDetailsViewModel = PersonDetailsViewModel(personRepository, sharedViewModel)
+        personDetailsViewModel = PersonDetailsViewModel()
+        personDetailsViewModel.setPersonRepository(personRepository)
+        personDetailsViewModel.setSharedViewModel(sharedViewModel)
+
     }
 }

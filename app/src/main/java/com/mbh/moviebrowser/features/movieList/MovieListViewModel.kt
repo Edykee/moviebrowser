@@ -8,14 +8,25 @@ import com.mbh.moviebrowser.model.Movie
 import com.mbh.moviebrowser.repository.GenreRepository
 import com.mbh.moviebrowser.repository.MovieRepository
 
-class MovieListViewModel(
-    val movieRepository: MovieRepository,
-    val genreRepository: GenreRepository,
-    val sharedViewModel: SharedViewModel
-) : ViewModel() {
+class MovieListViewModel() : ViewModel() {
+    private lateinit var movieRepository: MovieRepository
+    private lateinit var genreRepository: GenreRepository
+    private lateinit var sharedViewModel: SharedViewModel
 
     val genres: MutableLiveData<Map<Int, Genre>> = MutableLiveData<Map<Int, Genre>>()
     val movies: MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>()
+
+    fun setMovieRepository(movieRepository: MovieRepository) {
+        this.movieRepository = movieRepository
+    }
+
+    fun setGenreRepository(genreRepository: GenreRepository) {
+        this.genreRepository = genreRepository
+    }
+
+    fun setSharedViewModel(sharedViewModel: SharedViewModel) {
+        this.sharedViewModel = sharedViewModel
+    }
 
     fun loadPopularMovies() {
         sharedViewModel.showLoadingSpinner.value = true

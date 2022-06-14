@@ -6,13 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mbh.moviebrowser.databinding.ItemMovieBinding
 import com.mbh.moviebrowser.model.Genre
 import com.mbh.moviebrowser.model.Movie
-import java.util.stream.Collectors
 
 class MovieListAdapter(
     private var movies: List<Movie>,
     private var genreMap: Map<Int, Genre>,
     private var movieClickHandler: MovieClickHandler
-) : RecyclerView.Adapter<MovieListViewHolder>() {
+) : RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,7 +26,7 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val movie = movies[position]
         holder.itemMovieBinding.movie = movie
-        holder.itemMovieBinding.setGenres(convertGenreIdsToString(movie, genreMap))
+        holder.itemMovieBinding.setGenres(Converter.convertGenreIdsToString(movie, genreMap))
         holder.itemMovieBinding.movieClickHandler = this.movieClickHandler
     }
 
@@ -43,11 +42,7 @@ class MovieListAdapter(
         }
     }
 
-    private fun convertGenreIdsToString(movie: Movie, genreMap: Map<Int, Genre>): String {
-        return movie.genreIds
-            .stream()
-            .map { id -> genreMap[id]?.name ?: "" }
-            .filter { str -> str.isNotEmpty() }
-            .collect(Collectors.joining(", "))
+    class MovieListViewHolder(val itemMovieBinding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(itemMovieBinding.root) {
     }
 }

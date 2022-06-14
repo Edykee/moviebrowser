@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mbh.moviebrowser.databinding.ItemCastBinding
 import com.mbh.moviebrowser.model.Cast
 
-class CreditsAdapter(var casts: List<Cast>, var personClickHandler: PersonClickHandler) : RecyclerView.Adapter<CreditsViewHolder>() {
+class CreditsAdapter(var casts: List<Cast>, var personClickHandler: PersonClickHandler) : RecyclerView.Adapter<CreditsAdapter.CreditsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ItemCastBinding.inflate(layoutInflater, parent, false)
@@ -25,5 +25,9 @@ class CreditsAdapter(var casts: List<Cast>, var personClickHandler: PersonClickH
     fun updateCasts(casts: List<Cast>) {
         this.casts = casts;
         notifyDataSetChanged()
+    }
+
+    class CreditsViewHolder(val itemCastBinding: ItemCastBinding) :
+        RecyclerView.ViewHolder(itemCastBinding.root) {
     }
 }
